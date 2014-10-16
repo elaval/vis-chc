@@ -1,0 +1,55 @@
+  <!-- container -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" >
+          <span class="label label-info" ng-show="controller.gettingData">Paciencia ... consultando datos</span>
+          <h4 class="text-muted" ng-hide="controller.gettingData">Haga click en algún término para visualizar las licitaciones que lo contienen</h4>
+          <span class="text-muted" ng-hide="controller.gettingData">(nube de términos contruida en base a nombres de licitaciones activas)</span>
+          <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <div td-word-cloud td-data="controller.cloudText" td-click-handler="controller.clickHandlerCloud" td-max-number="500" td-excluded="controller.excludedTokens"></div>
+        <div id="tagCloud"></div>
+      </div>  
+
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div class="row">
+          <h4 ng-show="controller.searchText">Licitaciones que incluyen el término <span class="label label-info">{{controller.searchText}}</span></h4>
+          <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.searchText" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler" td-dont-display="controller.dontDisplay"></div>
+        </div>
+
+        <!-- legend -->
+        <div class="row text-center">
+          <div class="col-md-12">
+            <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
+              <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.estados[item.key]}} ({{item.n}})
+            </div>
+          </div>
+        </div><!-- legend -->
+        <div class="row" ng-show="controller.nSelected">
+          <span ng-show="controller.nSelected">{{controller.nSelected}} de </span>{{controller.data.length}} licitaciones
+        </div>
+        <div class="row" ng-show="controller.nSelected">
+          <span class="text-muted">Cada círculo representa una licitación activa. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>   
+        </div>
+
+        <div class="row" ng-show="controller.searchText">
+          <label class="text-muted"> También puede ingresar su propio texto para buscar en los nombres de licitaciones.</label>   
+        
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <input type="search" name="" id="input" ng-model="controller.search" ng-change="controller.changeSearch()" class="form-control" value="" required="required" title="" placeholder="Texto a buscar">
+          </div>
+        </div>
+      </div>  
+
+  
+    </div>
+
+
+
+  </div><!-- container -->

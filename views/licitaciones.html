@@ -1,0 +1,53 @@
+  <!-- container -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-6 col-sm-5 col-md-3 col-lg-2">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="{{'dd-MMMM-yyyy'}}" ng-model="controller.fecha" ng-change="controller.updateData()" is-open="controller.opened" max-date="controller.today" datepicker-options="controller.dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Borrar"/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="controller.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <input type="search" name="" id="input" ng-model="controller.search" class="form-control" value="" required="required" title="" placeholder="Texto a buscar">
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <h3><span  ng-hide="controller.gettingData">Licitaciones  {{controller.fecha | date:'dd-M-yyyy'}}</span></span><span class="label label-info" ng-show="controller.gettingData">consultando datos</span></h3>
+      </div>
+    </div>
+
+
+    <div class="row">
+      
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.search" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler"></div>
+      </div>  
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <!-- legend -->
+        <div class="row text-center">
+          <div class="col-md-offset-1 col-md-11">
+            <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
+              <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.estados[item.key]}} ({{item.n}})
+            </div>
+          </div>
+        </div><!-- legend -->
+      </div>   
+    </div>
+    <div class="row">
+      {{controller.nSelected}} de {{controller.data.length}} licitaciones
+    </div>
+    <div class="row" ng-show="controller.data.length">
+      <span class="text-muted">Cada círculo representa una licitación cuyo estado corresponde a la fecha seleccionada. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>
+    </div>
+  </div><!-- container -->

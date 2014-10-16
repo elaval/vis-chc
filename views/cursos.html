@@ -1,0 +1,111 @@
+  <!-- container -->
+  <div class="container" ng-controller="CursosController as cursos">
+ 
+    <div class="row main">
+
+      <!-- cursos por unidad -->
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> 
+            <h3>Cursos por unidad</h3>
+            <form role="form" class="form-horizontal">
+
+              <!-- Selector de unidades -->
+              <div class="form-group">
+                <label class="col-md-2" >Unidad</label>
+                <div class="col-md-10">
+                  <select type="text" class="form-control col-md-10" ng-model="controller.selectedUnidad" ng-options="obj.name as obj.name for obj in controller.unidades  | orderBy:'name'" ng-change="controller.updateCursosPorUnidadData()">
+                  </select>              
+                </div>
+
+              </div><!-- Selector de unidades -->
+
+              <!-- Selector de semestres -->
+              <div class="form-group">
+                <label class="col-md-2">Semestre</label>
+                <div class="col-md-10">
+                  <select type="text" class="form-control" ng-model="controller.selectedSemestre" ng-options="obj for obj in controller.semestres" ng-change="controller.updateSemestre()">
+                  </select>
+                </div>
+              </div><!-- Selector de unidades -->
+
+            </form>
+          </div>
+
+
+          <div class="panel-body">
+
+            <!-- Gráfico  promedio_sakai v/s r2 - cursos -->
+            <div class="row">
+              <div td-xy-chart class="col-md-12" td-data="controller.cursosPorUnidadData" td-xattribute="'promedio_sakai'" td-yattribute="'r2'" td-size-attribute="'n'" td-color-attribute="controller.colorAttribute" td-id-attribute="'sigla'" td-tooltip-message="controller.tooltipMessage" td-min-size="5" td-max-size="20"  td-width="300"  td-trendline="false" td-selected="controller.selectedCurso">
+              </div>
+            </div> <!-- Gráfico  promedio_sakai v/s r2 - cursos -->
+
+            <!-- Notas -->
+            <div class="row">
+              <div class="col-md-12">
+                Notas: <br>
+                (i) Cada burbuja corresponde a un curso<br>
+                (ii) Se despliegan solo cursos con mas de {{controller.minEstudiantesPorCurso}} estudiantes <br>
+                (iii) r2 indica cuan bien se ajustan los datos de los estudiantes (notas v/s actividades en sakai) a un modelo de regresion lineal.<br>
+                (iv) El tamaño de la burbuja se relaciona con la cantidad de estudiantes por curso<br>
+                (v) Hacer clic sobre una curso para ver la distribución de sus estudiantes<br>
+              </div>
+            </div><!-- Notas -->
+          </div>
+        </div>
+      </div><!-- cursos por unidad -->
+
+      <!-- estudiantes por curso -->
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>Estudiantes por curso <span ng-show="controller.selectedCurso.sigla">({{controller.selectedCurso.sigla}})</span></h3>
+            <form role="form" class="form-horizontal">
+
+              <!-- Selector e categorías por colores -->
+              <div class="form-group">
+                <label class="col-md-6 control-label">Colores</label>
+                <div class="col-md-6">
+                <select type="text" class="form-control" ng-model="controller.colorAttribute" ng-options="obj.value as obj.label for obj in controller.colorOptions" ng-change="controller.updateCurso()">
+                </select>
+                </div>
+              </div> <!-- Selector e categorías por colores -->
+
+              <!-- Selector de campo para Sakai -->
+              <div class="form-group">
+                <label class="col-md-6 control-label">Tipo Actividad Sakai</label>
+                <div class="col-md-6">
+                  <select type="text" class="form-control" ng-model="controller.sakaiActivity" ng-options="obj as obj.label for obj in controller.sakaiActivityOptions">
+                  </select>
+                </div>
+              </div> <!-- Selector actividad Sakai -->
+
+            </form>
+          </div>
+          <div class="panel-body">
+
+            <!-- Grafico sakai - estudiantes -->
+            <div class="row">
+              <div td-xy-chart class="col-md-12" td-data="controller.estudiantesPorCursoData" td-yattribute="'nota_final'" td-xattribute="controller.sakaiActivity.value"  td-sqr-scale-x="controller.sqrScaleX" td-tooltip-message="controller.tooltipMessageCurso" td-max-size="3" td-color-attribute="controller.colorAttribute" td-id-attribute="'id'" td-highlight="controller.highlightedRecord2" td-width="300"  td-trendline="true" td-selected="controller.selectedEstudiante" td-color-legend="controller.estudiantesLegend">
+              </div>
+            </div><!-- Grafico sakai - estudiantes -->
+
+            <!-- legend -->
+            <div class="row text-center">
+              <div class="col-md-offset-1 col-md-11">
+                <div class="row text-left" ng-repeat="code in controller.estudiantesLegend">
+                  <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+                </div>
+              </div>
+            </div><!-- legend -->
+
+            <!-- n -->
+            <div class="row">
+              <div class="col-md-offset-2 col-md-10" ng-show="controller.estudiantesPorCursoData.length">{{controller.estudiantesPorCursoData.length}} estudiantes</div>
+            </div><!-- n -->
+
+            <div class="panel-body">
+            </div> <!-- estudiantes por curso-->
+          </div> <!-- main -->
+        </div><!-- container -->

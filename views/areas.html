@@ -1,0 +1,269 @@
+  <!-- container -->
+  <div class="container">
+
+    <!-- selector -->
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row selector">
+
+        <!-- Selectores - Columna 1 -->
+        <form class="form-horizontal col-md-4 col-sm-4 col-xs-6" role="form" >
+            <!-- Selector de semestre -->
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="col-md-3 control-label">Semestre</label>
+              <div class="col-md-9">
+                <select type="text" class="form-control" ng-model="controller.selectedSemestre" ng-options="obj for obj in controller.semestres" ng-change="controller.updateStudentData()">
+                </select>
+              </div>
+            </div> <!-- Selector de semestre -->
+
+            <!-- Selector de area -->
+            <div class="form-group">
+              <label class="col-md-3 control-label">Area</label>
+              <div class="col-md-9">
+                <select type="text" class="form-control" ng-model="controller.selectedArea" ng-options="obj.name as obj.name for obj in controller.areas  | orderBy:'name'" ng-change="controller.updateStudentData()">
+                </select>
+              </div>
+            </div> <!-- Selector de area -->
+
+
+            <!-- Opción para excluir estudiantes sin actividad -->
+            <div class="form-group">
+              <label class="col-md-12 control-label"> 
+                Excluir estudiantes sin actividades
+                <input ng-model="controller.excludeZeroActivity" type="checkbox"></input>
+              </label>
+            </div><!-- Opción para exckuir estudiantes sin actividad -->
+
+            <!-- Opción para desplegar notas estandarizadas -->
+            <div class="form-group">
+              <label class="col-md-12 control-label"> 
+                Notas estandarizadas por área (puntaje z)
+                <input ng-model="controller.useStandarizedScores" type="checkbox" ng-change="controller.updateScoreType()"></input>
+              </label>
+            </div><!-- para desplegar notas estandarizadas -->
+
+ 
+        </form> <!-- Selectores - Columna 1 -->
+
+        <!-- Selectores - Columna 2 -->
+        <form class="form-horizontal col-md-4 col-sm-4 col-xs-6" role="form" >
+
+            <!-- Selector de año de estudio -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Año en la carrera</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.agnoIngreso" ng-options="obj.value as obj.label for obj in controller.agnoIngresoOptions" ng-change="controller.updateStudentData()">
+                </select>
+              </div>
+            </div> <!-- Selector de categorías (colores) -->
+
+            <!-- Selector de dependencia -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Dependencia escolar</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.dependenciaSelected" ng-options="obj for obj in controller.dependenciaOptions" ng-change="controller.updateStudentData()">
+                </select>
+              </div>
+            </div> <!-- Selector de dependencia -->
+
+            <!-- Selector de genero -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Genero</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.generoSelected" ng-options="obj.value as obj.label for obj in controller.generoOptions" ng-change="controller.updateStudentData()">
+                </select>
+              </div>
+            </div> <!-- Selector de dependencia -->
+
+ 
+        </form> <!-- Selectores - Columna 2 -->
+
+        <!-- Selectores - Columna 3 -->
+        <form class="form-horizontal col-md-4 col-sm-4 col-xs-6" role="form" >
+
+            <!-- Selector de categorías (colores) -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Colores por</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.colorAttribute" ng-options="obj.value as obj.label for obj in controller.colorOptions">
+                </select>
+              </div>
+            </div> <!-- Selector de categorías (colores) -->
+
+ 
+             <!-- Selector de campo para Aleph -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Tipo Actividad Aleph</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.alephActivity" ng-options="obj as obj.label for obj in controller.alephActivityOptions">
+                </select>
+              </div>
+            </div> <!-- Selector de campo para Aleph -->
+
+            <!-- Selector de campo para Sakai -->
+            <div class="form-group">
+              <label class="col-md-7 control-label">Tipo Actividad Sakai</label>
+              <div class="col-md-5">
+                <select type="text" class="form-control" ng-model="controller.sakaiActivity" ng-options="obj as obj.label for obj in controller.sakaiActivityOptions">
+                </select>
+              </div>
+            </div> <!-- Selector actividad Sakai -->
+
+ 
+        </form> <!-- Selectores - Columna 3-->
+
+ 
+        </div>       
+      </div>
+    </div><!-- selector -->
+
+
+
+    <div class="row main">
+
+     <!-- Gráfico aleph -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> 
+            <h3><span  ng-hide="controller.alephDrawing || controller.loading">Aleph<span ng-hide="controller.alephActivity.value=='actividades_aleph'"> - {{controller.alephActivity.label}}</span></span><span class="label label-info" ng-show="controller.loading">cargando</span><span class="label label-info" ng-show="controller.alephDrawing">redibujando</span>  </h3>
+          </div>
+          <div class="panel-body">
+             <div class="row">
+              <div class="col-md-12">
+                 <div td-xy-chart class="col-md-12" td-data="controller.data" td-xattribute="controller.alephActivity.value" td-yattribute="controller.yAttribute" td-tooltip-message="controller.tooltipMessage" td-max-size="3" td-color-attribute="controller.colorAttribute" td-selected="controller.highlightedRecord" td-width="150" td-trendline="true" td-color-legend="controller.alephLegend" td-drawing="controller.alephDrawing" td-exclude-zero-x="controller.excludeZeroActivity">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer"> 
+            <div class="row"> 
+              <div class="col-md-offset-1 col-md-11">
+                <div class="row text-left" ng-repeat="code in controller.alephLegend">
+                  <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+                </div>
+              </div>
+            </div>
+            <div ng-show="controller.excludeZeroActivity">Se excluyen estudiantes sin actividades en Aleph</div>
+          </div>
+        </div>
+
+
+      </div><!-- aleph -->
+
+      <!-- Gráfico ezproxy -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> 
+            <h3><span  ng-hide="controller.ezproxyDrawing || controller.loading">Ezproxy</span><span class="label label-info" ng-show="controller.loading">cargando</span><span class="label label-info" ng-show="controller.ezproxyDrawing">redibujando</span> </h3>
+          </div>
+          <div class="panel-body">
+             <div class="row">
+              <div class="col-md-12">
+                 <div td-xy-chart class="col-md-12" td-data="controller.data" td-xattribute="'actividades_ezproxy'" td-yattribute="controller.yAttribute" td-tooltip-message="controller.tooltipMessage" td-max-size="3" td-color-attribute="controller.colorAttribute" td-selected="controller.highlightedRecord" td-width="150" td-trendline="true" td-drawing="controller.ezproxyDrawing" td-color-legend="controller.ezproxyLegend" td-exclude-zero-x="controller.excludeZeroActivity">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer"> 
+            <div class="row">
+            <div class="col-md-offset-1 col-md-11">
+              <div class="row text-left" ng-repeat="code in controller.ezproxyLegend">
+                <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+              </div>
+            </div>
+            </div>
+            <div ng-show="controller.excludeZeroActivity">Se excluyen estudiantes sin actividades en Ezproxy</div>
+          </div>
+        </div>
+
+      </div><!-- ezproxy -->
+
+      <!-- Gráfico sakai -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> 
+            <h3><span ng-hide="controller.sakaiDrawing || controller.loading">Sakai<span ng-hide="controller.sakaiActivity.value=='actividades_sakai'"> - {{controller.sakaiActivity.label}}</span></span><span class="label label-info" ng-show="controller.loading">cargando</span><span class="label label-info" ng-show="controller.sakaiDrawing">redibujando</span> </h3>
+          </div>
+          <div class="panel-body">
+             <div class="row">
+              <div class="col-md-12">
+                 <div td-xy-chart class="col-md-12" td-data="controller.data" td-xattribute="controller.sakaiActivity.value" td-yattribute="controller.yAttribute"  td-tooltip-message="controller.tooltipMessage" td-max-size="3" td-color-attribute="controller.colorAttribute" td-selected="controller.highlightedRecord" td-width="150" td-trendline="true" td-drawing="controller.sakaiDrawing" td-color-legend="controller.sakaiLegend" td-exclude-zero-x="controller.excludeZeroActivity">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer"> 
+            <div class="row">
+            <div class="col-md-offset-1 col-md-11">
+              <div class="row text-left" ng-repeat="code in controller.sakaiLegend">
+                <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+              </div>
+            </div>
+            </div>
+            <div ng-show="controller.excludeZeroActivity">Se excluyen estudiantes sin actividades en Sakai</div>
+          </div>
+        </div>
+
+      </div><!-- sakai -->
+
+
+      <!-- Gráfico PSU -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> 
+            <h3><span  ng-hide="controller.psuDrawing || controller.loading">PSU</span><span class="label label-info" ng-show="controller.loading">cargando</span><span class="label label-info" ng-show="controller.psuDrawing">redibujando</span> </h3>
+          </div>
+          <div class="panel-body">
+             <div class="row">
+              <div class="col-md-12">
+                 <div td-xy-chart class="col-md-12" td-data="controller.data" td-xattribute="'prom_paa'" td-yattribute="controller.yAttribute" td-sqr-scale-x="controller.sqrScaleX" td-tooltip-message="controller.tooltipMessage" td-max-size="3" td-color-attribute="controller.colorAttribute" td-selected="controller.highlightedRecord" td-width="150" td-trendline="true" td-drawing="controller.psuDrawing" td-color-legend="controller.psuLegend" td-exclude-zero-x="true">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer"> 
+            <div class="row">
+            <div class="col-md-offset-1 col-md-11">
+              <div class="row text-left" ng-repeat="code in controller.psuLegend">
+                <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+              </div>
+            </div>
+            </div>
+            Se excluyen estudiantes sin puntaje en PSU
+          </div>
+        </div>
+
+      </div><!-- psu -->
+
+
+
+    </div> <!-- main -->
+
+
+    <!-- legend -->
+    <div class="row text-center">
+      <div class="col-md-offset-1 col-md-11">
+        <div class="row text-left" ng-repeat="code in controller.carrerasLegend">
+          <span style="font-size:10px; padding-left:10px; background-color:{{code.color}};">&nbsp;</span>&nbsp;{{code.key}} ({{code.n}})
+        </div>
+      </div>
+    </div><!-- legend -->
+
+    <!-- n -->
+    <div class="row">
+      <div class="col-md-12" ng-show="controller.data.length">
+        n= {{controller.data.length}} estudiantes
+      </div>
+    </div><!-- n -->
+
+    <!-- notas -->
+    <div class="row">
+      <div class="col-md-12">
+        Notas: <br>
+        (i)  En gráfico de PSU sólo se inlcuyen estudiantes con PSU válida (puntaje > 0)<br>
+        (ii) Hacer clic sobre un estudiante, este se selecciona en todos los gráficos<br>
+      </div>
+    </div><!-- notas -->
+
+  </div><!-- container -->
