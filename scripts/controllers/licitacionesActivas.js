@@ -115,7 +115,6 @@ angular.module('chilecompraApp')
 
     $http.jsonp('http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?estado=activas&ticket=615F615F-3B2E-458D-A6E6-C1AEAAE85CC7&callback=JSON_CALLBACK').
     success(function(data, status, headers, config) {
-        console.log(data);
         myself.data = data.Listado;
         myself.gettingData = false;
 
