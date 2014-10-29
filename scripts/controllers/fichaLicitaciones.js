@@ -11,10 +11,12 @@
  * @requires $scope
  *
  */
-angular.module('chilecompraApp').controller('ModalInstanceCtrl', function ($scope, $http, $modalInstance, licitacion) {
+angular.module('chilecompraApp').controller('ModalInstanceCtrl', function ($scope, $http, $modalInstance, $location, licitacion, nodesAndLinks, licitacionDataService) {
   var myself = this;
 
   this.licitacion = licitacion;
+  this.nodes = nodesAndLinks.nodes;
+  this.links = nodesAndLinks.links;
 
   this.ok = function () {
     $modalInstance.dismiss('cancel');
@@ -33,6 +35,13 @@ angular.module('chilecompraApp').controller('ModalInstanceCtrl', function ($scop
           myself.fichaLicitacion = null;
         }
         
+        licitacionDataService.similarNodes2(licitacion['CodigoExterno'])
+        .then(function(similarNodes) {
+          myself.nodes = similarNodes.nodes;
+          myself.links = similarNodes.links;
+        })
+
+
         myself.gettingData = false;
         // this callback will be called asynchronously
         // when the response is available
@@ -43,6 +52,9 @@ angular.module('chilecompraApp').controller('ModalInstanceCtrl', function ($scop
         // or server returns response with an error status.
     });
 
+  this.GoToRelated = function() {
+    $location.path('licitacion/1636-205-L114');
+  }
 
 });
 

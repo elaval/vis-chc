@@ -1,6 +1,6 @@
 {
   "name": "tide-angular",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "homepage": "https://github.com/elaval/tide-angular",
   "authors": [
     "Ernesto Laval <ernesto.laval@gmail.com>"
@@ -29,13 +29,13 @@
     "d3": "~3.4.6",
     "underscore": "~1.6.0"
   },
-  "_release": "0.0.13",
+  "_release": "0.0.14",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.13",
-    "commit": "93d1fd984e6444491e89fec2ee825e53ff476fdf"
+    "tag": "v0.0.14",
+    "commit": "71644a0a8530607f2beb5e23af2aa81e099f8299"
   },
   "_source": "git://github.com/elaval/tide-angular.git",
-  "_target": "0.0.13",
+  "_target": "*",
   "_originalSource": "tide-angular"
 }

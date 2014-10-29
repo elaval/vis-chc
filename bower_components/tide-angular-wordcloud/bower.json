@@ -1,0 +1,28 @@
+{
+  "name": "tide-angular-wordcloud",
+  "main": ["d3.layout.cloud.js","tide-angular-wordcloud.js"],
+  "version": "0.0.4",
+  "authors": [
+    "Ernesto Laval <ernesto.laval@gmail.com>"
+  ],
+  "description": "Tide-Angular directive to display a Word Cloud",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "visualization",
+    "wordcloud",
+    "tide"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tide-angular": "0.0.14"  
+  }
+}

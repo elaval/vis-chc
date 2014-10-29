@@ -234,8 +234,6 @@ angular.module("tide-angular")
 
 
         var render = function(data) {
-          scope.selected = null;
-          
           if (data) {
             data = _.filter(data, function(d,i) {
               var accepted = true;

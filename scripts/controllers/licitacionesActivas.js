@@ -26,27 +26,18 @@
  *
  */
 angular.module('chilecompraApp')
-.controller('LicitacionesActivasController', ['$scope','$http','$modal', 'LicitacionesDataService',function ($scope,$http,$modal, dataService) {
+.controller('LicitacionesActivasController', ['$scope','$http','$location','$modal', 'termRelationsService', 'licitacionDataService',function ($scope, $http, $location, $modal, termRelations, licitacionDataService) {
   var myself = this;
 
   this.cloudText = [];
 
   this.today = new Date();
 
-  this.clear = function () {
-    //myself.fecha = null;
-  };
-
   this.open = function($event) {
     $event.preventDefault();
     $event.stopPropagation();
 
     myself.opened = true;
-  };
-
-  this.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
   };
 
   var myself = this;
@@ -112,21 +103,24 @@ angular.module('chilecompraApp')
     myself.search = null;
 
     myself.dontDisplay = true;
+    myself.apiError = false;
 
-    $http.jsonp('http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?estado=activas&ticket=615F615F-3B2E-458D-A6E6-C1AEAAE85CC7&callback=JSON_CALLBACK').
-    success(function(data, status, headers, config) {
-        myself.data = data.Listado;
-        myself.gettingData = false;
+    licitacionDataService.getActivas()
+    .then(function(data) {
+      myself.data = data;
+      myself.gettingData = false;
+      licitacionDataService.getAllTags()
+      .then(function(tags) {
+        myself.cloudText = tags;
+      })
 
-        myself.initWorlde(myself.data);
-        // this callback will be called asynchronously
-        // when the response is available
-    }).
-    error(function(data, status, headers, config) {
-        myself.gettingData = false;
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-    });
+
+       
+    })
+    .catch(function(err) {
+      myself.gettingData = false;
+      myself.apiError = true;
+    })
   }
 
 
@@ -150,6 +144,7 @@ angular.module('chilecompraApp')
   this.changeSearch = function() {
     if (myself.search.length > 2) {
       myself.searchText = myself.search;
+      myself.similarTerms = termRelations.similarTerms(myself.searchText);
     }
   }
 
@@ -157,24 +152,43 @@ angular.module('chilecompraApp')
 
     $scope.$apply(function() {
       myself.searchText = d.text;
-      myself.dontDisplay = false;     
+      myself.dontDisplay = false;   
+      //myself.similarTerms = termRelations.similarTerms(myself.searchText);
     })
 
   }
 
   this.clickHandler = function(d) {
 
-    var modalInstance = $modal.open({
-      templateUrl: 'views/fichaLicitacion.html',
-      controller: 'ModalInstanceCtrl',
-      controllerAs: 'controller',
-      size: 'lg',
-      resolve: {
-          licitacion: function() {
-            return d
-          }
-      }
-    });
+    //$location.path("/licitacion/"+d.CodigoExterno)
+
+    
+    //var nodesAndLinks = termRelations.similarNodes(d);
+
+    licitacionDataService.similarNodes2(d.CodigoExterno)
+    .then(function(similarNodes) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'views/fichaLicitacion.html',
+        controller: 'ModalInstanceCtrl',
+        controllerAs: 'controller',
+        size: 'lg',
+        resolve: {
+            licitacion: function() {
+              return d;
+            },
+            nodesAndLinks: function() {
+              return similarNodes;
+            }
+        }
+      });
+
+
+    })
+
+
+
+    
   }
 
 
@@ -189,10 +203,13 @@ angular.module('chilecompraApp')
   }
 
 
+  this.searchSimilar = function(term) {
+    myself.similarTerms = termRelations.similarTerms(term);
+  }
 
- 
 
   this.fecha = new Date();
   this.updateData();
 
 }]);
+

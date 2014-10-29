@@ -18,8 +18,8 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/licitaciones.html',
-        controller: 'LicitacionesController',
+        templateUrl: 'views/licitacionesActivas.html',
+        controller: 'LicitacionesActivasController',
         controllerAs: 'controller'
       })
       .when('/activas', {
@@ -27,11 +27,23 @@ angular
         controller: 'LicitacionesActivasController',
         controllerAs: 'controller'
       })
-      .when('/historico', {
-        templateUrl: 'views/licitaciones.html',
-        controller: 'LicitacionesController',
+      .when('/historicas', {
+        templateUrl: 'views/licitacionesHistoricas.html',
+        controller: 'LicitacionesHistoricasController',
         controllerAs: 'controller'
       })
+      .when('/licitacion/:licitacionId', {
+        templateUrl: 'views/licitacion.html',
+        controller: 'LicitacionController',
+        controllerAs: 'controller'
+      })
+      .when('/licitacion', {
+        templateUrl: 'views/licitacion.html',
+        controller: 'LicitacionController',
+        controllerAs: 'controller'
+      })
+
+ 
       .otherwise({
         redirectTo: '/'
       });

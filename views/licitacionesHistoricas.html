@@ -44,10 +44,15 @@
         </div><!-- legend -->
       </div>   
     </div>
+
     <div class="row">
-      {{controller.nSelected}} de {{controller.data.length}} licitaciones
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{controller.nSelected}} de {{controller.data.length}} licitaciones
+      </div>
     </div>
     <div class="row" ng-show="controller.data.length">
-      <span class="text-muted">Cada círculo representa una licitación cuyo estado corresponde a la fecha seleccionada. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>
+      <div <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <span class="text-muted">Cada círculo representa una licitación cuyo estado corresponde a la fecha seleccionada. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>
+      </div>
     </div>
   </div><!-- container -->

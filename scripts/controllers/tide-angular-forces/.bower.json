@@ -1,0 +1,41 @@
+{
+  "name": "tide-angular-wordcloud",
+  "main": [
+    "d3.layout.cloud.js",
+    "tide-angular-wordcloud.js"
+  ],
+  "version": "0.0.4",
+  "authors": [
+    "Ernesto Laval <ernesto.laval@gmail.com>"
+  ],
+  "description": "Tide-Angular directive to display a Word Cloud",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "visualization",
+    "wordcloud",
+    "tide"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tide-angular": "0.0.14"
+  },
+  "homepage": "https://github.com/elaval/tide-angular-wordcloud",
+  "_release": "0.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.4",
+    "commit": "c502f49b0853bb462a1c71ac05b1c513f95fbfef"
+  },
+  "_source": "git://github.com/elaval/tide-angular-wordcloud.git",
+  "_target": "~0.0.1",
+  "_originalSource": "tide-angular-wordcloud"
+}

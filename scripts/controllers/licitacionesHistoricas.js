@@ -26,7 +26,7 @@
  *
  */
 angular.module('chilecompraApp')
-.controller('LicitacionesController', ['$scope','$http','$modal', 'LicitacionesDataService',function ($scope,$http,$modal, dataService) {
+.controller('LicitacionesHistoricasController', ['$scope','$http','$modal', 'LicitacionesDataService',function ($scope,$http,$modal, dataService) {
   var myself = this;
 
   this.today = new Date();

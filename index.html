@@ -38,8 +38,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/historico') || isActive('/')}"><a href="#historico">Licitaciones asociadas a un día específico</a></li>
-            <li ng-class="{ active: isActive('/activas') }"><a href="#activas">Licitaciones activas</a></li>
+            <li ng-class="{ active: isActive('/activas') || isActive('/') }"><a href="#activas">Licitaciones activas</a></li>
+            <li ng-class="{ active: isActive('/historicas')}"><a href="#historicas">Licitaciones históricas (asociadas a un día específico)</a></li>
+
           </ul>
         </div><!-- /.navbar-collapse -->
 
@@ -80,20 +81,21 @@
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/tide-angular/tide-angular.js"></script>
+    <script src="bower_components/tide-angular-chilecompra/tide-angular-chilecompra.js"></script>
+    <script src="bower_components/tide-angular-wordcloud/d3.layout.cloud.js"></script>
+    <script src="bower_components/tide-angular-wordcloud/tide-angular-wordcloud.js"></script>
+    <script src="bower_components/levenshtein/lib/levenshtein.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <!--<script src="/Users/elaval/Documents/TIDE Exploraciones/Angular/packages/tide-angular/tide-angular.js"></script>-->
-
-        <script src="bower_components/tide-angular/tide-demo.js"></script>
-        <script src="bower_components/d3/d3.layout.cloud.js"></script>
-
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/licitaciones.js"></script>
+        <script src="scripts/controllers/licitacionesHistoricas.js"></script>
         <script src="scripts/controllers/licitacionesActivas.js"></script>
         <script src="scripts/controllers/fichaLicitaciones.js"></script>
+        <script src="scripts/controllers/licitacion.js"></script>
+
+        <script src="scripts/controllers/tide-angular-forces/tide-angular-forces.js"></script>
         <!-- endbuild -->
 </body>
 </html>

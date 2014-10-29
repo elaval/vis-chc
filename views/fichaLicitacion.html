@@ -29,6 +29,7 @@
       </tbody>
     </table>
 
+    
     <h4> Items </h4>
 
 
@@ -47,6 +48,15 @@
             <a ng-click="selected.item = item">{{ item }}</a>
         </li>
     </ul>
+
+    <accordion>
+       <accordion-group is-open="status.open">
+          <accordion-heading>
+              Ver licitaciones similares <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+          </accordion-heading>
+          <div td-forces td-nodes="controller.nodes" td-links="controller.links"></div>
+      </accordion-group>
+    </accordion>
 
 </div>
 <div class="modal-footer">
