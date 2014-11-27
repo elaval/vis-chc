@@ -21,19 +21,19 @@
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <div class="row">
           <h4 ng-show="controller.searchText">Licitaciones que incluyen términos similares a <span class="label label-info">{{controller.searchText}}</span></h4>
-          <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.searchText" td-similar-terms="controller.similarTerms" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler" td-dont-display="controller.dontDisplay"></div>
+          <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.searchText" td-similar-terms="controller.similarTerms" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler" td-dont-display="controller.dontDisplay" td-color-by-cierre="true"></div>
         </div>
 
         <!-- legend -->
         <div class="row text-center">
           <div class="col-md-12">
             <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
-              <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.estados[item.key]}} ({{item.n}})
+              <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.categoriaCierre[item.key]}} ({{item.n}} <span ng-show="item.n">licitaciones</span><span ng-hide="item.n">licitación</span>)
             </div>
           </div>
         </div><!-- legend -->
         <div class="row" ng-show="controller.nSelected">
-          <span ng-show="controller.nSelected">{{controller.nSelected}} de </span>{{controller.data.length}} licitaciones
+          <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} de un total de </span>{{controller.data.length}} licitaciones publicadas
         </div>
         <div class="row" ng-show="controller.nSelected">
           <span class="text-muted">Cada círculo representa una licitación activa. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>   

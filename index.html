@@ -5,13 +5,14 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
-    <title>Visualizador de Licitaciones - ChileCompra v0.0.2</title>
+    <title>Visualizador de Licitaciones - MercadoPublico v0.0.3</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -33,16 +34,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Visualizador de Licitaciones - ChileCompra</a>
+          <a class="navbar-brand" href="">Visualizador de licitaciones publicadas en Mercadopúblico.cl</a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/activas') || isActive('/') }"><a href="#activas">Licitaciones activas</a></li>
-            <li ng-class="{ active: isActive('/historicas')}"><a href="#historicas">Licitaciones históricas (asociadas a un día específico)</a></li>
 
-          </ul>
-        </div><!-- /.navbar-collapse -->
 
       </div><!-- /.container-fluid -->
     </nav>
@@ -50,6 +44,19 @@
 
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p class="text-muted"><img src="images/tide.jpg" class="img-responsive" alt="Image">Desarrollado por <a href="http://ww.tide.cl" target="_blank">TIDE SA</a></p>
+        </div>
+     
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p> <img src="images/logo_chilecompra.png" class="img-responsive" alt="Image"> Esta página utiliza la API de Mercadopublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. 
+        </div>
+      </div> 
+    </footer>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -85,6 +92,8 @@
     <script src="bower_components/tide-angular-wordcloud/d3.layout.cloud.js"></script>
     <script src="bower_components/tide-angular-wordcloud/tide-angular-wordcloud.js"></script>
     <script src="bower_components/levenshtein/lib/levenshtein.js"></script>
+    <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
         <!-- build:js({.tmp,app}) scripts/scripts.js -->

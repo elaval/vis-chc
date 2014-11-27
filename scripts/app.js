@@ -13,7 +13,9 @@ angular
     'tide-angular',
     'underscore',
     'd3service',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angular-loading-bar',
+//    'ngAnimate'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -47,5 +49,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
-
+  })
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+  }])

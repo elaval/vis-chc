@@ -143,7 +143,7 @@ angular.module("tide-angular")
 
 
 
-            force.on("tick", function() {
+            force.on("tick", function(e) {
               link.attr("x1", function(d) { return d.source.x; })
                   .attr("y1", function(d) { return d.source.y; })
                   .attr("x2", function(d) { return d.target.x; })
@@ -158,7 +158,7 @@ angular.module("tide-angular")
               mainNodeLabel.attr("x", function(d) { return d.x; })
                   .attr("y", function(d) { return d.y; });
 
-
+              if (e.alpha < 0.05) {force.stop()}
 
             });
 

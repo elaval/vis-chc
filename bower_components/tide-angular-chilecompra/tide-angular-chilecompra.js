@@ -24,7 +24,9 @@ tideElements.directive("tdChcChart",["$compile","_", "d3", "toolTip", "$window",
         nSelected : "=?tdNumSelected",
         selected : "=?tdSelected",
         clickHandler : "=?tdClickHandler",
-        dontDisplay : "=?tdDontDisplay"
+        dontDisplay : "=?tdDontDisplay",
+        colorByCierre : "=?tdColorByCierre"
+
       },
       
       link: function (scope, element, attrs) {
@@ -55,7 +57,7 @@ tideElements.directive("tdChcChart",["$compile","_", "d3", "toolTip", "$window",
         } else {
           dataPointTooltip.message(function(d) {
             var msg = "Nombre" + " : " + d["Nombre"];
-            msg += "<br>" + "Estado" +  " : " + d["CodigoEstado"];
+            msg += "<br>" + "Estado" +  " : " + d[colorAttribute];
             msg += "<br>" + "Código" +  " : " + d["CodigoExterno"];
 
             return  msg;
@@ -95,20 +97,27 @@ tideElements.directive("tdChcChart",["$compile","_", "d3", "toolTip", "$window",
 
             scope.nSelected = data.length;
 
-            var colorCategories = _.keys(_.groupBy(data, function(d) {return d["CodigoEstado"]})).sort();
+            var colorAttribute = scope.colorByCierre ? "categoriaCierre" : colorAttribute;
+
+            var colorCategories= _.keys(_.groupBy(data, function(d) {return d[colorAttribute]})).sort();
             colorCategories = _.sortBy(colorCategories, function(d) {return +d});
+
 
             colorScale.domain(colorCategories);
 
             // Color legend data to be shared through the scope
             scope.colorLegend = [];
-            var groupsByColor = _.groupBy(data, function(d) {return d["CodigoEstado"]});
+            var groupsByColor = _.groupBy(data, function(d) {return d[colorAttribute]});
 
             _.each(colorCategories, function(d) {
               scope.colorLegend.push({key:d, color:colorScale(d), n:groupsByColor[d].length});
             })
 
-            data = _.sortBy(data, function(d) {return d.CodigoEstado})
+            if (scope.colorByCierre) {
+              data = _.sortBy(data, function(d) {return +d.diasParaCierre})
+            } else {
+              data = _.sortBy(data, function(d) {return d.CodigoEstado})
+            }
 
             // Update SVG height according to data length
             var rows = Math.ceil(data.length/MAX_COLS)
@@ -134,7 +143,12 @@ tideElements.directive("tdChcChart",["$compile","_", "d3", "toolTip", "$window",
                 return RADIUS
               })   
               .attr("fill", function(d) {
-                return colorScale(d["CodigoEstado"])
+                if (scope.colorByCierre) {
+                  return colorScale(d["categoriaCierre"])
+                } else {
+                  return colorScale(d[colorAttribute])
+                }
+                
               })           
               .attr("opacity", 0.8)
               .on("click", function(d) {
@@ -167,8 +181,12 @@ tideElements.directive("tdChcChart",["$compile","_", "d3", "toolTip", "$window",
                 return row*COL_WIDTH;
               })
             .attr("fill", function(d) {
-                return colorScale(d["CodigoEstado"])
-              })           
+                 if (scope.colorByCierre) {
+                  return colorScale(d["categoriaCierre"])
+                } else {
+                  return colorScale(d[colorAttribute])
+                }             
+            })           
 
           } //end if
 

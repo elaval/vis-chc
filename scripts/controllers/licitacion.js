@@ -117,34 +117,6 @@ angular.module('chilecompraApp')
     })
 
 
-    /*
-    var words = {}, // Auxiliary object used to identify & count words
-    returnTokens = []; // Array with each individual token and its number of occurrences
-
-    data.forEach(function(d) {
-      var tokens = d.match(/\S+/g)
-
-      tokens.forEach(function(t) {
-        var token = t.toLowerCase();
-        if (words[token]) {
-          words[token] = words[token]+1;
-        } else {
-          words[token] = 1;
-        }
-      })
-    })
-
-    d3.keys(words).forEach(function(t) {
-      if ((words[t]>scope.minCount) && (scope.excluded.indexOf(t) == -1) && (t.length >2)) {
-        returnTokens.push({text:t, num:words[t]});
-      }
-    })
-
-    returnTokens = _.sortBy(returnTokens, function(d) {return -d.num});
-
-    return _.first(returnTokens,scope.maxNumber);
-    */
-
     return this
   }
 
@@ -307,10 +279,34 @@ angular.module('chilecompraApp')
     if (licitacionData.dataActivas) {
       deferred.resolve(licitacionData.dataActivas);
     } else {
-      //$http.jsonp('http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?estado=activas&ticket=615F615F-3B2E-458D-A6E6-C1AEAAE85CC7&callback=JSON_CALLBACK').
-      $http.get('./data/activasJSONP.js')
+      $http.jsonp('http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?estado=activas&ticket=615F615F-3B2E-458D-A6E6-C1AEAAE85CC7&callback=JSON_CALLBACK')
+      //$http.get('./data/activasJSONP.js')
       .success(function(data, status, headers, config) {
           licitacionData.dataActivas = data.Listado;
+
+          _.each(licitacionData.dataActivas, function(d) {
+            var fechaCierre = new Date(d.FechaCierre);
+            var fechaActual = new Date();
+
+
+
+            d.diasParaCierre = (fechaCierre.setHours(0,0,0,0)- fechaActual.setHours(0,0,0,0))/(1000*60*60*24);
+            d.diasParaCierre = d.diasParaCierre > 0 ? d.diasParaCierre : 0;
+
+            if (d.diasParaCierre < 1) {
+              d.categoriaCierre = '01dia'
+            } else if (d.diasParaCierre < 7) {
+              d.categoriaCierre = '07dias'
+            } else if (d.diasParaCierre < 30) {
+              d.categoriaCierre = '30dias'
+            } else {
+              d.categoriaCierre = 'sobre30dias'
+            }
+
+
+
+          });
+
           deferred.resolve(licitacionData.dataActivas);
       })
       .error(function(data, status, headers, config) {

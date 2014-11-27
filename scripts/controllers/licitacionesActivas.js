@@ -26,7 +26,7 @@
  *
  */
 angular.module('chilecompraApp')
-.controller('LicitacionesActivasController', ['$scope','$http','$location','$modal', 'termRelationsService', 'licitacionDataService',function ($scope, $http, $location, $modal, termRelations, licitacionDataService) {
+.controller('LicitacionesActivasController', ['$scope','$http','$location','$modal','$filter', 'termRelationsService', 'licitacionDataService',function ($scope, $http, $location, $modal, $filter, termRelations, licitacionDataService) {
   var myself = this;
 
   this.cloudText = [];
@@ -46,8 +46,10 @@ angular.module('chilecompraApp')
   this.search = null;
 
   this.tooltipMessage = function(d) {
-      var msg = "Nombre" + " : " + d["Nombre"];
-      msg += "<br>" + "Estado" +  " : " + myself.estados[d["CodigoEstado"]];
+      var mensajeDias = d.diasParaCierre == 0 ? "Hoy" : d.diasParaCierre == 1 ? "Falta 1 día" : "Faltan "+d.diasParaCierre+" días";
+
+      var msg = "<strong>"+ d["Nombre"] +"</strong>";
+      msg += "<br>"+ "Fecha de cierre: "+ $filter('date')(new Date(d["FechaCierre"]), 'mediumDate')+ " ("+mensajeDias+")."
       msg += "<br>" + "Código" +  " : " + d["CodigoExterno"];
 
       return  msg;
@@ -63,6 +65,15 @@ angular.module('chilecompraApp')
   this.estados[16] = "Suspendida";
   this.estados[18] = "Revocada";
   this.estados[19] = "Suspendida";
+
+  this.categoriaCierre = {
+    '01dia' : 'Cierre hoy',
+    '07dias' : 'Cierre en 7 días',
+    '30dias' : 'Cierre en 30 días',
+    'sobre30dias' : 'Cierre sobre 30 días',
+  };
+  
+
 
   this.excludedTokens = [
     "2013","2014",
