@@ -125,6 +125,47 @@ angular.module("tide-angular")
                 })
                 .call(force.drag);
 
+           var label = svgContainer.selectAll(".label")
+                .data(_.filter(nodes, function(d) {return d.type=='term'}))
+              .enter()
+                .append("g")
+                .attr("class", "label")
+
+            label
+              .append("rect")
+              .attr("class" ,"labelbg")
+
+            label
+              .append("text")
+              .text(function(d) {return d.info})
+              .attr("text-anchor", "middle")
+              .each(function(d) {
+                d.width = this.getBBox().width;
+              });
+
+            label.select(".labelbg")
+              .attr("width", function(d) {
+                return d.width+4
+              })
+              .attr("height", 20)
+              .attr("x", function(d) {
+                return -(d.width+4)/2
+              })
+              .attr("y", function(d) {
+                return -12
+              })
+              .attr("rx", function(d) {
+                return 5
+              })
+              .attr("ry", function(d) {
+                return 5
+              })
+              .attr("fill", "white")
+              .attr("opacity", 0.8)
+
+
+
+/*
             var label = svgContainer.selectAll(".label")
                 .data(_.filter(nodes, function(d) {return d.type=='term'}))
               .enter()
@@ -132,15 +173,45 @@ angular.module("tide-angular")
                 .attr("class", "label")
                 .text(function(d) {return d.info})
                 .attr("text-anchor", "middle")
-
-            var mainNodeLabel = svgContainer.selectAll(".mainNode")
+                */
+           var mainNodeLabel = svgContainer.selectAll(".mainNode")
                 .data(_.first(nodes,1))
               .enter()
-                .append("text")
+                .append("g")
                 .attr("class", "mainNode")
-                .text(function(d) {return d.info.CodigoExterno})
-                .attr("text-anchor", "middle")
 
+            mainNodeLabel
+              .append("rect")
+              .attr("class" ,"mainNodelabelbg")
+
+            mainNodeLabel
+              .append("text")
+              .text(function(d) {return d.info.CodigoExterno})
+              .attr("text-anchor", "middle")
+              .each(function(d) {
+                d.width = this.getBBox().width;
+              });
+
+
+            mainNodeLabel.select(".mainNodelabelbg")
+              .attr("width", function(d) {
+                return d.width+4
+              })
+              .attr("height", 20)
+              .attr("x", function(d) {
+                return -(d.width+4)/2
+              })
+              .attr("y", function(d) {
+                return -14
+              })
+              .attr("rx", function(d) {
+                return 5
+              })
+              .attr("ry", function(d) {
+                return 5
+              })
+              .attr("fill", "salmon")
+              .attr("opacity", 0.8)
 
 
             force.on("tick", function(e) {
@@ -152,13 +223,21 @@ angular.module("tide-angular")
               node.attr("cx", function(d) { return d.x; })
                   .attr("cy", function(d) { return d.y; });
 
-              label.attr("x", function(d) { return d.x; })
+              /*label.attr("x", function(d) { return d.x; })
                   .attr("y", function(d) { return d.y; });
+                  */
 
-              mainNodeLabel.attr("x", function(d) { return d.x; })
-                  .attr("y", function(d) { return d.y; });
+              label
+                .attr("transform", function(d) {
+                  return "translate(" + d.x + "," + (d.y-10) + ")"
+                })
 
-              if (e.alpha < 0.05) {force.stop()}
+              mainNodeLabel
+                .attr("transform", function(d) {
+                  return "translate(" + d.x + "," + (d.y-15) + ")"
+                })
+
+              if (e.alpha < 0.04) {force.stop()}
 
             });
 

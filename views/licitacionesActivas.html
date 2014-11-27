@@ -37,8 +37,8 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Licitaciones<span ng-show="controller.searchText"> con <span class="label label-info" >{{controller.searchText}}</span></span></h3>
-            <p ng-show="controller.searchText">Pase el mouse sobre los círculos que representan las licitaciones para ver sus datos básicos</p>
+            <h3 class="panel-title">Licitaciones<span ng-show="controller.searchText"> relacionadas con <span class="label label-info" >{{controller.searchText}}</span></span></h3>
+            <p ng-show="controller.searchText">Pase el mouse sobre los círculos que representan las licitaciones para ver sus datos básicos. Un click le permite abrir una ficha con información.</p>
           </div>
           <div class="panel-body">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -48,7 +48,7 @@
             </div>
 
             <!-- legend -->
-            <div class="row text-center">
+            <div class="row text-center" ng-show="controller.searchText">
               <div class="col-md-12">
                 <p text-info>Los colores representan la fecha de cierre de la licitación</p>
                 <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
@@ -60,12 +60,9 @@
               <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} licitaciones de un total de </span>{{controller.data.length}} publicadas.
             </div>
             <hr/>
-            <div class="row" ng-show="controller.nSelected">
-              <span class="text-muted">Si hace click en una licitación podrá cargar una ficha con información adicional.</span>   
-            </div>
 
             <div class="row" ng-show="controller.searchText">
-              <label class="text-muted">También puede ingresar su propio texto para buscar otras licitaciones.</label>   
+              <p class="text-info">También puede ingresar su propio texto para buscar otras licitaciones.</p>   
             
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <input type="search" name="" id="input" ng-model="controller.search" ng-change="controller.changeSearch()" class="form-control" value="" required="required" title="" placeholder="Texto a buscar">
@@ -85,12 +82,15 @@
 
     <footer class="footer" ng-hide="controller.gettingData || controller.apiError">
       <div class="container">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          <p class="text-muted"><img src="images/tide.jpg" class="img-responsive" alt="Image">Desarrollado por <a href="http://ww.tide.cl" target="_blank">TIDE SA</a></p>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <p class="text-muted"><img src="images/tide.png" class="img-responsive" alt="Image">Desarrollado por <a href="http://www.tide.cl" target="_blank">TIDE SA</a></p>
+          <p>Este visualizador ha sido presentado al concurso organizado por api.mercadopublico.cl</p>
         </div>
-     
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        </div>
+ 
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          <p> <img src="images/logo_chilecompra.png" class="img-responsive" alt="Image"> Esta página utiliza la API de Mercadopublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. 
+          <p> <img src="images/logo_chilecompra.png" class="img-responsive" alt="Image"> Esta página utiliza la API de Mercadopublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. </p>
         </div>
       </div> 
     </footer>
