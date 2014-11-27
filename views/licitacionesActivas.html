@@ -1,56 +1,98 @@
   <!-- container -->
   <div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" ng-show="controller.gettingData">
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" >
-          <span class="label label-info" ng-show="controller.gettingData">Paciencia ... consultando datos</span>
-          <span class="label label-warning" ng-show="controller.apiError">Error de comunicación.  Revise su conexión a Inernet e intente nuevamente</span>
-          <h4 class="text-muted" ng-hide="controller.gettingData || controller.apiError">Haga click en algún término para visualizar las licitaciones que lo contienen</h4>
-          <span class="text-muted" ng-hide="controller.gettingData || controller.apiError">(nube de términos contruida en base a nombres de licitaciones activas)</span>
-          <hr>
-      </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="">Consultando licitaciones...</span>
+          </div>
+        </div>
+        <p class="text-muted">Estamos cargando miles de licitaciones desde mercadopublico.cl para que usted pueda explorarlas con facilidad</p>
     </div>
 
-    <div class="row">
-      
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <div td-word-cloud td-data="controller.cloudText" td-click-handler="controller.clickHandlerCloud" td-max-number="500" td-excluded="controller.excludedTokens"></div>
-        <div id="tagCloud"></div>
-      </div>  
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" ng-show="controller.apiError">
+      <span class="label label-warning" >Error de comunicación.  Revise su conexión a Inernet e intente nuevamente</span>
+    </div>
 
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <div class="row">
-          <h4 ng-show="controller.searchText">Licitaciones que incluyen términos similares a <span class="label label-info">{{controller.searchText}}</span></h4>
-          <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.searchText" td-similar-terms="controller.similarTerms" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler" td-dont-display="controller.dontDisplay" td-color-by-cierre="true"></div>
+    <div class="row" ng-hide="controller.gettingData || controller.apiError">
+      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Nube de términos</h3>
+            <p>Haga click en algún término para seleccionar las licitaciones que lo contienen</p>
+          </div>
+          <div class="panel-body">
+            <div td-word-cloud td-data="controller.cloudText" td-click-handler="controller.clickHandlerCloud" td-max-number="500" td-excluded="controller.excludedTokens"></div>          
+          </div>
+
+          <div class="panel-footer">
+            <p>La nube de términos se construye con las palabras más frecuentes encontradas en los nombres de las licitaciones activas publicadas en mercadopublico.cl
+          </div>
+
         </div>
+      </div>
+  
 
-        <!-- legend -->
-        <div class="row text-center">
-          <div class="col-md-12">
-            <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
-              <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.categoriaCierre[item.key]}} ({{item.n}} <span ng-show="item.n">licitaciones</span><span ng-hide="item.n">licitación</span>)
+      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Licitaciones<span ng-show="controller.searchText"> con <span class="label label-info" >{{controller.searchText}}</span></span></h3>
+            <p ng-show="controller.searchText">Pase el mouse sobre los círculos que representan las licitaciones para ver sus datos básicos</p>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            
+            <div class="row">
+              <div td-chc-chart td-data="controller.data" td-color-legend="controller.licitacionesLegend" td-tooltip-message="controller.tooltipMessage" td-search="controller.searchText" td-similar-terms="controller.similarTerms" td-num-selected="controller.nSelected" td-selected="controller.selected" td-click-handler="controller.clickHandler" td-dont-display="controller.dontDisplay" td-color-by-cierre="true"></div>
             </div>
+
+            <!-- legend -->
+            <div class="row text-center">
+              <div class="col-md-12">
+                <p text-info>Los colores representan la fecha de cierre de la licitación</p>
+                <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
+                  <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.categoriaCierre[item.key]}} ({{item.n}} <span ng-show="item.n">licitaciones</span><span ng-hide="item.n">licitación</span>)
+                </div>
+              </div>
+            </div><!-- legend -->
+            <div class="row" ng-show="controller.nSelected">
+              <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} licitaciones de un total de </span>{{controller.data.length}} publicadas.
+            </div>
+            <hr/>
+            <div class="row" ng-show="controller.nSelected">
+              <span class="text-muted">Si hace click en una licitación podrá cargar una ficha con información adicional.</span>   
+            </div>
+
+            <div class="row" ng-show="controller.searchText">
+              <label class="text-muted">También puede ingresar su propio texto para buscar otras licitaciones.</label>   
+            
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="search" name="" id="input" ng-model="controller.search" ng-change="controller.changeSearch()" class="form-control" value="" required="required" title="" placeholder="Texto a buscar">
+              </div>
+            </div>
+
+
           </div>
-        </div><!-- legend -->
-        <div class="row" ng-show="controller.nSelected">
-          <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} de un total de </span>{{controller.data.length}} licitaciones publicadas
-        </div>
-        <div class="row" ng-show="controller.nSelected">
-          <span class="text-muted">Cada círculo representa una licitación activa. Si hace click sobre ella podrá cargar una ficha con información adicional.</span>   
+          </div>
         </div>
 
-        <div class="row" ng-show="controller.searchText">
-          <label class="text-muted"> También puede ingresar su propio texto para buscar en los nombres de licitaciones.</label>   
-        
-          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <input type="search" name="" id="input" ng-model="controller.search" ng-change="controller.changeSearch()" class="form-control" value="" required="required" title="" placeholder="Texto a buscar">
-          </div>
-        </div>
+
       </div>  
 
   
     </div>
 
-
+    <footer class="footer" ng-hide="controller.gettingData || controller.apiError">
+      <div class="container">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p class="text-muted"><img src="images/tide.jpg" class="img-responsive" alt="Image">Desarrollado por <a href="http://ww.tide.cl" target="_blank">TIDE SA</a></p>
+        </div>
+     
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p> <img src="images/logo_chilecompra.png" class="img-responsive" alt="Image"> Esta página utiliza la API de Mercadopublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. 
+        </div>
+      </div> 
+    </footer>
 
   </div><!-- container -->
