@@ -46,6 +46,8 @@ angular.module('chilecompraApp')
   this.search = null;
 
   this.tooltipMessage = function(d) {
+      ga('send', 'event', 'licitacion', 'tooltip', d["CodigoExterno"]);
+
       var mensajeDias = d.diasParaCierre == 0 ? "Hoy" : d.diasParaCierre == 1 ? "Falta 1 día" : "Faltan "+d.diasParaCierre+" días";
 
       var msg = "<strong>"+ d["Nombre"] +"</strong>";
@@ -160,6 +162,7 @@ angular.module('chilecompraApp')
   }
 
   this.clickHandlerCloud = function(d) {
+    ga('send', 'event', 'cloudword', 'select', d.text);
 
     $scope.$apply(function() {
       myself.searchText = d.text;
@@ -170,6 +173,9 @@ angular.module('chilecompraApp')
   }
 
   this.clickHandler = function(d) {
+    ga('send', 'event', 'licitacion', 'open', d.CodigoExterno);
+
+
 
     //$location.path("/licitacion/"+d.CodigoExterno)
 

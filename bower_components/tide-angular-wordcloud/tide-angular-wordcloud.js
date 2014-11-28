@@ -168,6 +168,7 @@ angular.module("tide-angular")
                 .text(function(d) { return d.text; })
                 .style("font-size", function(d) { return d.size + "px"; })
                 .style("font-family", "Impact")
+                .style("cursor", "pointer")
                 .attr("text-anchor", "middle")
                 .on("click", function(d) {
                   scope.clickHandler(d);
@@ -201,7 +202,7 @@ angular.module("tide-angular")
                 .remove();
 
               tags
-              .on("click", function(d) {
+              .on("click", function(d) {                      
                     scope.clickHandler(d);
               })    
               .transition()

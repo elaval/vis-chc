@@ -15,50 +15,64 @@
 
 
 <div class="modal-body" ng-hide="controller.gettingData">
-    <table class="table table-hover">
-      <tbody>
-        <tr>
-          <td>Descripción</td>
-          <td>{{controller.fichaLicitacion.Descripcion}}</td>
-        </tr>
-        <tr>
-          <td>Comprador</td>
-          <td>{{controller.fichaLicitacion.Comprador.NombreOrganismo}}</td>
-        </tr>        
-        <tr>
-          <td>Estado</td>
-          <td>{{controller.fichaLicitacion.Estado}}</td>
-        </tr>
-        <tr>
-          <td>Fecha de cierre</td>
-          <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'dd-MMM-yyyy'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} días)</span></td>
-        </tr>
+   <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Datos generales</h3>
+        </div>
+        <div class="panel-body">
 
-      </tbody>
-    </table>
-
-    
-    <h4> Items </h4>
-
-
-    <table class="table table-hover">
-      <tbody>
-        <tr ng-repeat="item in controller.fichaLicitacion.Items.Listado">
-          <td>{{item.Correlativo}}</td>
-          <td>{{item.NombreProducto}}<br>{{item.Descripcion}}</td>
-        </tr>
-      </tbody>
-    </table>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <td>Descripción</td>
+                <td>{{controller.fichaLicitacion.Descripcion}}</td>
+              </tr>
+              <tr>
+                <td>Comprador</td>
+                <td>{{controller.fichaLicitacion.Comprador.NombreOrganismo}}</td>
+              </tr>        
+              <tr>
+                <td>Estado</td>
+                <td>{{controller.fichaLicitacion.Estado}}</td>
+              </tr>
+              <tr>
+                <td>Fecha de cierre</td>
+                <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'dd-MMM-yyyy'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} días)</span></td>
+              </tr>
+              <tr ng-show="controller.fichaLicitacion.MontoEstimado">
+                <td>Monto estimado</td>
+                <td>{{controller.fichaLicitacion.MontoEstimado | number:0}} <span ng-show="controller.fichaLicitacion.MontoEstimado">({{controller.fichaLicitacion.Moneda}})</span></td>
+              </tr>
 
 
-    <ul>
-        <li ng-repeat="item in items">
-            <a ng-click="selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
+            </tbody>
+          </table>
+
+
+        </div>
+    </div>
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Items</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <tbody>
+              <tr ng-repeat="item in controller.fichaLicitacion.Items.Listado">
+                <td>{{item.Correlativo}}</td>
+                <td>{{item.NombreProducto}}<br>{{item.Descripcion}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+
+
 
     <accordion>
-       <accordion-group is-open="status.open">
+       <accordion-group is-open="status.open" class="panel-primary">
           <accordion-heading>
               Ver licitaciones similares <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
           </accordion-heading>
@@ -66,6 +80,30 @@
           <div td-forces td-nodes="controller.nodes" td-links="controller.links"></div>
       </accordion-group>
     </accordion>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Ver licitación en sitio de MercadoPublico</h3>
+        </div>
+        <div class="panel-body">
+          <p>Esperamos contar pronto con un enlace directo a la licitación en el sitio de MercadoPublico, donde podrá acceder a información adicional y descargar las bases de licitación (y otros documentos adjuntos).</p>
+          <p>Por ahora le sugerimos que:</p>
+          <li> Copie el identificador de la licitación que se indica más abajo (seleccionarlo y luego copiar)</li>
+          <li> Pegue el identificador en el buscador "Busque licitaciones" de la página mercadopublico.cl</li>
+          <p/>
+
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="sr-only" for="codigoLicitacion">Identificador de Licitación</label>
+                <div class="input-group-addon">Id de licitación</div>
+                <input type="email" class="form-control" id="codigoLicitacion"  value="{{controller.licitacion.CodigoExterno}}" required="required" pattern="" title="" readonly="true" select-on-click>
+              </div>
+            </div>
+            <a  href="http://www.mercadopublico.cl" class="btn btn-default" target="_blank">Ir a MercadoPublico.cl</a>
+          </form>
+        </div>
+    </div>
 
 </div>
 <div class="modal-footer">

@@ -7,7 +7,7 @@
             <span class="">Consultando licitaciones...</span>
           </div>
         </div>
-        <p class="text-muted">Estamos cargando miles de licitaciones desde mercadopublico.cl para que usted pueda explorarlas con facilidad</p>
+        <p class="text-muted">Estamos consultando las licitaciones activas en <a href="http://mercadopublico.cl" target="_blank">mercadopublico.cl</a> para que usted pueda explorarlas con facilidad</p>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" ng-show="controller.apiError">
@@ -82,15 +82,12 @@
 
     <footer class="footer" ng-hide="controller.gettingData || controller.apiError">
       <div class="container">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <p class="text-muted"><img src="images/tide.png" class="img-responsive" alt="Image">Desarrollado por <a href="http://www.tide.cl" target="_blank">TIDE SA</a></p>
-          <p>Este visualizador ha sido presentado al concurso organizado por api.mercadopublico.cl</p>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <img src="images/tide.png" class="img" height="50" alt="Image"><p class="text-muted">Visualizador desarrollado por <a href="http://www.tide.cl" target="_blank">TIDE SA</a> para ser presentado al concurso <a href="http://www.chilecompra.cl/index.php?option=com_content&view=article&id=1924%3Achilecompra-lanza-concurso-para-desarrollo-de-aplicaciones-con-nueva-api-de-mercado-publico&catid=381&Itemid=1095" target="_blank">"Desarrolla aplicaciones innovadoras con la información de ChileCompra"</a> organizado por Chilecompra.</p>
         </div>
  
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          <p> <img src="images/logo_chilecompra.png" class="img-responsive" alt="Image"> Esta página utiliza la API de Mercadopublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. </p>
+          <img src="images/logo_chilecompra.png" class="img" alt="Image" height="50px"> <p> Esta página utiliza la API de MercadoPublico (<a href="http://api.mercadopublico.cl" target="_blank">api.mercadopublico.cl</a>) que permite consultar licitaciones del sector público en Chile. </p>
         </div>
       </div> 
     </footer>

@@ -1,65 +1,64 @@
  
 
 <div class="modal-header">
-    <button type="button" class="close" ng-click="controller.ok()" aria-hidden="true">&times;</button>
-    <h3 class="modal-title">Licitacion {{controller.licitacion.CodigoExterno}}</h3>
-    <h4 class="modal-title">{{controller.licitacion.Nombre}}</h4>
+  <button type="button" class="close" ng-click="controller.ok()" aria-hidden="true">&times;</button>
+  <h3 class="modal-title">Licitacion {{controller.licitacion.CodigoExterno}}</h3>
+  <h4 class="modal-title">{{controller.licitacion.Nombre}}</h4>
 </div>
 <div class="modal-body" ng-show="controller.gettingData" class="label label-info">cargando datos ...</div>
 <div class="modal-body" ng-hide="controller.gettingData">
-    <table class="table table-hover">
-      <tbody>
-        <tr>
-          <td>Descripción</td>
-          <td>{{controller.fichaLicitacion.Descripcion}}</td>
-        </tr>
-        <tr>
-          <td>Comprador</td>
-          <td>{{controller.fichaLicitacion.Comprador.NombreOrganismo}}</td>
-        </tr>        
-        <tr>
-          <td>Estado</td>
-          <td>{{controller.fichaLicitacion.Estado}}</td>
-        </tr>
-        <tr>
-          <td>Fecha de cierre</td>
-          <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'dd-MMM-yyyy'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} días)</span></td>
-        </tr>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <td>Descripción</td>
+        <td>{{controller.fichaLicitacion.Descripcion}}</td>
+      </tr>
+      <tr>
+        <td>Comprador</td>
+        <td>{{controller.fichaLicitacion.Comprador.NombreOrganismo}}</td>
+      </tr>        
+      <tr>
+        <td>Estado</td>
+        <td>{{controller.fichaLicitacion.Estado}}</td>
+      </tr>
+      <tr>
+        <td>Fecha de cierre</td>
+        <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'dd-MMM-yyyy'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} días)</span></td>
+      </tr>
 
-      </tbody>
-    </table>
+    </tbody>
+  </table>
 
-    <div ng-show="controller.nodes.length" <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h5>Licitaciones similares a esta licitación</h5>
-        <div td-forces td-nodes="controller.nodes" td-links="controller.links">
+  <div ng-show="controller.nodes.length" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h5>Licitaciones similares a esta licitación</h5>
+    <div td-forces td-nodes="controller.nodes" td-links="controller.links">
     </div>
 
-      
-    </div>
+    
+  </div>
 
-    <h4> Items </h4>
-
-
-    <table class="table table-hover">
-      <tbody>
-        <tr ng-repeat="item in controller.fichaLicitacion.Items.Listado">
-          <td>{{item.Correlativo}}</td>
-          <td>{{item.NombreProducto}}<br>{{item.Descripcion}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <h4> Items </h4>
 
 
-    <ul>
-        <li ng-repeat="item in items">
-            <a ng-click="selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
+  <table class="table table-hover">
+    <tbody>
+      <tr ng-repeat="item in controller.fichaLicitacion.Items.Listado">
+        <td>{{item.Correlativo}}</td>
+        <td>{{item.NombreProducto}}<br>{{item.Descripcion}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <ul>
+    <li ng-repeat="item in items">
+      <a ng-click="selected.item = item">{{ item }}</a>
+    </li>
+  </ul>
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="controller.ok()">OK</button>
+  <button class="btn btn-primary" ng-click="controller.ok()">OK</button>
 </div>
 
 
- 
