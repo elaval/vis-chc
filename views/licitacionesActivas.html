@@ -37,7 +37,7 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Licitaciones<span ng-show="controller.searchText"> relacionadas con <span class="label label-info" >{{controller.searchText}}</span></span></h3>
+            <h3 class="panel-title">Licitaciones<span ng-show="controller.searchText">&nbsp;relacionadas con <span class="label label-info" >{{controller.searchText}}</span></span></h3>
             <p ng-show="controller.searchText">Pase el mouse sobre los círculos que representan las licitaciones para ver sus datos básicos. Un click le permite abrir una ficha con información.</p>
           </div>
           <div class="panel-body">
@@ -57,7 +57,7 @@
               </div>
             </div><!-- legend -->
             <div class="row" ng-show="controller.nSelected">
-              <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} licitaciones de un total de </span>{{controller.data.length}} publicadas.
+              <span ng-show="controller.nSelected">Se muestran {{controller.nSelected}} licitaciones de un total de </span>&nbsp;{{controller.data.length}} publicadas.
             </div>
             <hr/>
 
