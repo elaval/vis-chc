@@ -282,7 +282,13 @@ angular.module('chilecompraApp')
       $http.jsonp('http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.jsonp?estado=activas&ticket=615F615F-3B2E-458D-A6E6-C1AEAAE85CC7&callback=JSON_CALLBACK')
       //$http.get('./data/activasJSONP.js')
       .success(function(data, status, headers, config) {
-          licitacionData.dataActivas = data.Listado;
+
+          // filtra licitaciones con fecha invalida (¿cerrada?)
+          licitacionData.dataActivas = _.filter(data.Listado, function(d){
+            return d.FechaCierre != null;
+          });
+
+          console.log(data.Listado[0])
 
           _.each(licitacionData.dataActivas, function(d) {
             var fechaCierre = new Date(d.FechaCierre);
