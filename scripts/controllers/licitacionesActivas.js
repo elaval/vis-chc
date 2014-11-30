@@ -49,7 +49,7 @@ angular.module('chilecompraApp')
       ga('send', 'event', 'licitacion', 'tooltip', d["CodigoExterno"]);
 
       var mensajeDias = d["FechaCierre"] == null ? "Se asume hoy" : d.diasParaCierre == 0 ? "Hoy" : d.diasParaCierre == 1 ? "Falta 1 día" : "Faltan "+Math.floor(d.diasParaCierre)+" días";
-      var mensajeFechaCierre = d["FechaCierre"] !== null ? $filter('date')(new Date(d["FechaCierre"]), 'mediumDate') : "No especificada"
+      var mensajeFechaCierre = d["FechaCierre"] !== null ? $filter('date')(new Date(d["FechaCierre"]), 'dd MMMM, yyyy') : "No especificada"
 
       var msg = "<strong>"+ d["Nombre"] +"</strong>";
       msg += "<br>"+ "Fecha de cierre: "+ mensajeFechaCierre + " ("+mensajeDias+")."

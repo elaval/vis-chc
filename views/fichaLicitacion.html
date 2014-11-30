@@ -37,7 +37,7 @@
               </tr>
               <tr>
                 <td>Fecha de cierre</td>
-                <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'mediumDate'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion > 1">días</span><span ng-show="controller.fichaLicitacion.DiasCierreLicitacion == 1">día</span>)</span></td>
+                <td>{{controller.fichaLicitacion.Fechas.FechaCierre | date:'dd MMMM, yyyy'}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion">(en {{controller.fichaLicitacion.DiasCierreLicitacion}} <span ng-show="controller.fichaLicitacion.DiasCierreLicitacion > 1">días</span><span ng-show="controller.fichaLicitacion.DiasCierreLicitacion == 1">día</span>)</span></td>
               </tr>
               <tr ng-show="controller.fichaLicitacion.MontoEstimado">
                 <td>Monto estimado</td>
