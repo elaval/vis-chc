@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
-    <title>Visualizador de Licitaciones - MercadoPublico v1.0.0</title>
+    <title>Visualizador de Licitaciones - MercadoPublico v1.0.2</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -18,6 +18,7 @@
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <script type="text/javascript" src="scripts/utils/modernizr.custom.19490.js"></script>
   </head>
   <body ng-app="chilecompraApp">
     <!--[if lt IE 7]>
@@ -26,16 +27,16 @@
 
     <nav class="navbar navbar-inverse" role="navigation" ng-controller="HeaderController" >
 
-
       <div class="container-fluid">
           <h1 class="navbar-text navbar-center">Visualizador de licitaciones en MercadoPublico.cl</h1>
       </div><!-- /.container-fluid -->
     </nav>
 
+    <div id="browser_warning">
+        <h3 class="text-muted">Su navegador no soporta algunas funciones modernas (HTML5 / SVG) que son necesarias para el funcionamiento de este visualizador.  Le sugerimos actualizarl el navegador o probar con uno diferente.</h3>
+    </div>
 
-    <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
-
+    <div class="container" ng-view></div>
 
 
 

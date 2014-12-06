@@ -26,7 +26,7 @@
  *
  */
 angular.module('chilecompraApp')
-.controller('LicitacionesActivasController', ['$scope','$http','$location','$modal','$filter', 'termRelationsService', 'licitacionDataService',function ($scope, $http, $location, $modal, $filter, termRelations, licitacionDataService) {
+.controller('LicitacionesActivasController', ['$scope','$http','$modal','$filter', 'termRelationsService', 'licitacionDataService',function ($scope, $http, $modal, $filter, termRelations, licitacionDataService) {
   var myself = this;
 
   this.cloudText = [];

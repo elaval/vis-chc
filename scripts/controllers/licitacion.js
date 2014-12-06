@@ -74,7 +74,7 @@ angular.module('chilecompraApp')
   var excludedTerms = [
     "2013","2014",
     "de","para","del","en","con","al",
-    "la","el","los","un",
+    "la","el","los","un","las",
     "compra","adquisición","adquisicion","adq", "adq.",
     "y","a","e","i","o","u","x","ii",
     "nº","/","n°","-",
@@ -356,8 +356,14 @@ angular.module('chilecompraApp')
                 licitacionData.tags[t] = {text:t, num:0, nodes:{}}
               }
 
+              // En casos excepcionales el tag corresponde a una palabra reservada (Ej. constructor) predefinido para licitacionData.tags. Es necesario forzar la creación del objeto licitacionData.tags[t]
+              if (!licitacionData.tags[t].nodes) {
+                console.log("EXCEPTION",t, key);
+                licitacionData.tags[t] = {text:t, num:0, nodes:{}}
+              }
+
               licitacionData.tags[t].num = licitacionData.tags[t].num+1;
-              licitacionData.tags[t].nodes[key] = true;
+                            licitacionData.tags[t].nodes[key] = true;
 
               d.terms[t] = true;
             }

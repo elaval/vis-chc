@@ -15,7 +15,7 @@
     </div>
 
     <div class="row" ng-hide="controller.gettingData || controller.apiError">
-      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7"> <!-- Nube -->
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Nube de términos</h3>
@@ -30,10 +30,10 @@
           </div>
 
         </div>
-      </div>
+      </div> <!-- Nube -->
   
 
-      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"> <!-- licitaciones -->
 
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -52,7 +52,7 @@
               <div class="col-md-12">
                 <p text-info>Los colores representan la fecha de cierre de la licitación</p>
                 <div class="row text-left" ng-repeat="item in controller.licitacionesLegend">
-                  <span style="font-size:10px; padding-left:10px; background-color:{{item.color}};">&nbsp;</span>&nbsp;{{controller.categoriaCierre[item.key]}} ({{item.n}} <span ng-show="item.n">licitaciones</span><span ng-hide="item.n">licitación</span>)
+                  <span style="font-size:10px; padding-left:10px;" ng-style="{'background-color': item.color}">&nbsp;</span>&nbsp;{{controller.categoriaCierre[item.key]}} ({{item.n}} <span ng-show="item.n">licitaciones</span><span ng-hide="item.n">licitación</span>)
                 </div>
               </div>
             </div><!-- legend -->
@@ -75,9 +75,13 @@
         </div>
 
 
-      </div>  
+      </div>  <!-- licitaciones -->
 
   
+    </div>
+
+    <div class="row text-muted" ng-hide="controller.gettingData || controller.apiError">
+      Nota: La API de MercadoPublico nos proporciona un listado de las licitaciones activas que incluye el código, nombre, estado y fecha de cierre para cada licitación. En la medida que futuras versiones de la API incluyan otros datos clave (P.Ej. Comprador o Región) podremos desarrollar una nueva versión de este visualizador con funcionalidades que le ayuden más aún a encontrar las licitaciones de su interés.
     </div>
 
     <footer class="footer" ng-hide="controller.gettingData || controller.apiError">
